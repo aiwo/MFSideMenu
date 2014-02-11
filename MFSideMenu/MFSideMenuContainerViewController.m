@@ -496,15 +496,16 @@ typedef enum {
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    
+    if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]] &&
+       self.menuState != MFSideMenuStateClosed) return YES;
+    
     if ([touch locationInView:self.view].x > 10)
         return NO;
     
     UINavigationController *centerController = self.centerViewController;
     if (centerController.viewControllers.count > 1)
         return NO;
-    
-    if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]] &&
-       self.menuState != MFSideMenuStateClosed) return YES;
     
     if([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
         if([gestureRecognizer.view isEqual:[self.centerViewController view]])
