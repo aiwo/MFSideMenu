@@ -496,9 +496,8 @@ typedef enum {
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    
-    if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]] &&
-       self.menuState != MFSideMenuStateClosed) return YES;
+    if (self.menuState != MFSideMenuStateClosed)
+        return YES;
     
     if ([touch locationInView:self.view].x > 10)
         return NO;
